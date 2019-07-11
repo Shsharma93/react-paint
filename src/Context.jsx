@@ -7,16 +7,21 @@ export class Provider extends Component {
     brushColor: 'fff',
     catenaryColor: 'fff',
     activeColor: 'red',
+    setCanvas: '',
     undoCanvas: () => {
-      console.log('Clicked Undo');
+      this.state.setCanvas.undo();
     },
     clearCanvas: () => {
-      console.log('Clicked Clear');
+      this.state.setCanvas.clear();
     },
     colorChange: color => {
       this.setState({ brushColor: color });
+    },
+    canvasClearCall: canvasA => {
+      
     }
   };
+
   render() {
     return (
       <Context.Provider value={{ state: this.state }}>

@@ -11,10 +11,10 @@ const NavBarItems = () => {
         <Grid.Column width={6}>
           <ColorComponent />
         </Grid.Column>
-        <Grid.Column width={5}>
+        <Grid.Column width={6}>
           <ButtonComponent />
         </Grid.Column>
-        <Grid.Column width={5}>
+        <Grid.Column width={4}>
           <LabelComponent />
         </Grid.Column>
       </Grid.Row>
