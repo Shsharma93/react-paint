@@ -6,15 +6,15 @@ const LabelComponent = () => {
   return (
     <Consumer>
       {context => {
-        const { totalClicks, sessionClicks } = context.state;
+        const { activeColor } = context.state;
         return (
           <div style={{ marginTop: '0.3em' }}>
             <Label color='teal' size='small'>
-              {totalClicks}
+              {activeColor.totalClicks}
               <Label.Detail>Total Click</Label.Detail>
             </Label>
             <Label color='teal' size='small'>
-              {sessionClicks}
+              {activeColor.sessionClicks}
               <Label.Detail>This session Click</Label.Detail>
             </Label>
           </div>

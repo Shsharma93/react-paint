@@ -14,13 +14,12 @@ class ClickableArea extends Component {
       <Consumer>
         {context => {
           const {
-            brushColor,
-            isCanvasActive,
             isCanvasCleared,
             isCanvasUndo,
             countClick,
             changeCanvasUndo,
-            changeCanvasClear
+            changeCanvasClear,
+            activeColor
           } = context.state;
 
           if (isCanvasCleared) {
@@ -36,9 +35,8 @@ class ClickableArea extends Component {
               <CanvasDraw
                 ref={this.myRef}
                 hideGrid
-                disabled={isCanvasActive === false ? true : false}
-                brushColor={brushColor}
-                catenaryColor={brushColor}
+                brushColor={activeColor.name}
+                catenaryColor={activeColor.name}
                 canvasWidth={'1130px'}
                 canvasHeight={'600px'}
                 lazyRadius={0}

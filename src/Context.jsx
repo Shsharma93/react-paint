@@ -4,38 +4,57 @@ const Context = React.createContext();
 
 export class Provider extends Component {
   state = {
-    brushColor: 'red',
-    catenaryColor: 'red',
-    activeColor: 'red',
-    setCanvas: '',
+    colors: [
+      { name: 'red', totalClicks: 0, sessionClicks: 0 },
+      { name: 'blue', totalClicks: 0, sessionClicks: 0 },
+      { name: 'brown', totalClicks: 0, sessionClicks: 0 }
+    ],
+    activeColor: { name: 'red', totalClicks: 0, sessionClicks: 0 },
     isCanvasUndo: false,
     isCanvasCleared: false,
-    totalClicks: 0,
-    sessionClicks: 0,
     countClick: () => {
-      const sessionClicks = this.state.sessionClicks + 1;
-      console.log('SessionClicks');
-      this.setState({ sessionClicks });
+      const { colors, activeColor } = this.state;
+      const { index, color } = this.filterAndIndex(colors, activeColor);
+      color.sessionClicks += 1;
+      colors[index] = color;
+      console.log(color);
+      this.setState({ colors });
     },
     undoCanvas: () => {
-      const sessionClicks =
-        this.state.sessionClicks > 0 ? this.state.sessionClicks - 1 : 0;
-      this.setState({ isCanvasUndo: true, sessionClicks });
+      const { colors, activeColor } = this.state;
+      const { index, color } = this.filterAndIndex(colors, activeColor);
+      color.sessionClicks =
+        color.sessionClicks > 0 ? color.sessionClicks - 1 : 0;
+      colors[index] = color;
+      console.log(color);
+      this.setState({ isCanvasUndo: true, colors });
     },
     changeCanvasUndo: () => {
       this.setState({ isCanvasUndo: false });
     },
     clearCanvas: () => {
-      const sessionClicks = 0;
-      this.setState({ isCanvasCleared: true, sessionClicks });
+      const { colors, activeColor } = this.state;
+      const { index, color } = this.filterAndIndex(colors, activeColor);
+      color.sessionClicks = 0;
+      colors[index] = color;
+      this.setState({ isCanvasCleared: true, colors });
     },
     changeCanvasClear: () => {
-      console.log('cli');
       this.setState({ isCanvasCleared: false });
     },
     colorChange: color => {
-      this.setState({ brushColor: color });
+      this.setState({ activeColor: color });
     }
+  };
+
+  componentDidMount = () => {
+    this.setState({ activeColor: this.state.colors[0] });
+  };
+
+  filterAndIndex = (colors, activeColor) => {
+    const color = colors.filter(color => color.name === activeColor.name);
+    const index = colors.findIndex(color => color.name === activeColor.name);
+    return { color: color[0], index };
   };
 
   render() {
