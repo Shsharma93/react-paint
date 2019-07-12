@@ -4,17 +4,39 @@ import { Container } from 'semantic-ui-react';
 import CanvasDraw from 'react-canvas-draw';
 
 class ClickableArea extends Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+
   render() {
     return (
       <Consumer>
         {context => {
-          const { brushColor, canvasClearCall } = context.state;
+          const {
+            brushColor,
+            isCanvasActive,
+            isCanvasCleared,
+            isCanvasUndo,
+            countClick,
+            changeCanvasUndo,
+            changeCanvasClear
+          } = context.state;
 
+          if (isCanvasCleared) {
+            this.myRef.current.clear();
+            changeCanvasClear();
+          }
+          if (isCanvasUndo) {
+            this.myRef.current.undo();
+            changeCanvasUndo();
+          }
           return (
-            <Container>
+            <Container onClick={countClick}>
               <CanvasDraw
-                ref={canvasDraw => canvasClearCall(canvasDraw)}
+                ref={this.myRef}
                 hideGrid
+                disabled={isCanvasActive === false ? true : false}
                 brushColor={brushColor}
                 catenaryColor={brushColor}
                 canvasWidth={'1130px'}

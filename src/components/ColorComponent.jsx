@@ -13,9 +13,8 @@ const ColorComponent = () => {
               Colors
             </h3>
             <Button
-              active
               inverted
-              size='large'
+              size='medium'
               color='red'
               onClick={() => colorChange('red')}
             >
@@ -23,7 +22,7 @@ const ColorComponent = () => {
             </Button>
             <Button
               inverted
-              size='large'
+              size='medium'
               color='blue'
               onClick={() => colorChange('blue')}
             >
@@ -31,7 +30,7 @@ const ColorComponent = () => {
             </Button>
             <Button
               inverted
-              size='large'
+              size='medium'
               color='brown'
               onClick={() => colorChange('brown')}
             >

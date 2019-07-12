@@ -8,10 +8,10 @@ const NavBarItems = () => {
   return (
     <Grid>
       <Grid.Row>
-        <Grid.Column width={6}>
+        <Grid.Column width={5}>
           <ColorComponent />
         </Grid.Column>
-        <Grid.Column width={6}>
+        <Grid.Column width={7}>
           <ButtonComponent />
         </Grid.Column>
         <Grid.Column width={4}>
