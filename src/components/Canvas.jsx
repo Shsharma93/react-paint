@@ -14,25 +14,19 @@ class ClickableArea extends Component {
       <Consumer>
         {context => {
           const {
-            isCanvasCleared,
-            isCanvasUndo,
-            countClick,
-            changeCanvasUndo,
-            changeCanvasClear,
+            countClicks,
             activeColor,
-            canvasDimensions
+            canvasDimensions,
+            isCanvasAvailable,
+            getCanvasRef,
           } = context.state;
 
-          if (isCanvasCleared) {
-            this.myRef.current.clear();
-            changeCanvasClear();
+          if (isCanvasAvailable) {
+            getCanvasRef(this.myRef.current);
           }
-          if (isCanvasUndo) {
-            this.myRef.current.undo();
-            changeCanvasUndo();
-          }
+
           return (
-            <Container onClick={countClick}>
+            <Container onClick={countClicks}>
               <CanvasDraw
                 ref={this.myRef}
                 hideGrid

@@ -6,7 +6,12 @@ const ButtonComponent = () => {
   return (
     <Consumer>
       {context => {
-        const { undoCanvas, clearCanvas } = context.state;
+        const {
+          undoCanvas,
+          clearCanvas,
+          saveCanvas,
+          loadSavedCanvas
+        } = context.state;
         return (
           <Fragment>
             <Button size='medium' color='blue' onClick={undoCanvas}>
@@ -17,9 +22,13 @@ const ButtonComponent = () => {
               <Icon name='trash' />
               Clear
             </Button>
-            <Button size='medium' color='blue'>
+            <Button size='medium' color='blue' onClick={saveCanvas}>
               <Icon name='save' />
               Save
+            </Button>
+            <Button size='medium' color='blue' onClick={loadSavedCanvas}>
+              <Icon name='upload' />
+              Load
             </Button>
           </Fragment>
         );
