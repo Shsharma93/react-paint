@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 const Context = React.createContext();
 
 export class Provider extends Component {
   state = {
     colors: [
-      { name: 'red', totalClicks: 0, sessionClicks: 0 },
-      { name: 'blue', totalClicks: 0, sessionClicks: 0 },
-      { name: 'brown', totalClicks: 0, sessionClicks: 0 }
+      { name: 'red', totalclicks: 0, sessionclicks: 0 },
+      { name: 'blue', totalclicks: 0, sessionclicks: 0 },
+      { name: 'brown', totalclicks: 0, sessionclicks: 0 }
     ],
-    activeColor: { name: 'red', totalClicks: 0, sessionClicks: 0 },
+    activeColor: { name: 'red', totalclicks: 0, sessionclicks: 0 },
     isCanvasUndo: false,
     isCanvasCleared: false,
+    canvasDimensions: { width: 1130, height: 600 },
     countClick: () => {
       const { colors, activeColor } = this.state;
       const { index, color } = this.filterAndIndex(colors, activeColor);
-      color.sessionClicks += 1;
+      color.sessionclicks += 1;
       colors[index] = color;
       console.log(color);
       this.setState({ colors });
@@ -23,8 +25,8 @@ export class Provider extends Component {
     undoCanvas: () => {
       const { colors, activeColor } = this.state;
       const { index, color } = this.filterAndIndex(colors, activeColor);
-      color.sessionClicks =
-        color.sessionClicks > 0 ? color.sessionClicks - 1 : 0;
+      color.sessionclicks =
+        color.sessionclicks > 0 ? color.sessionclicks - 1 : 0;
       colors[index] = color;
       console.log(color);
       this.setState({ isCanvasUndo: true, colors });
@@ -33,10 +35,8 @@ export class Provider extends Component {
       this.setState({ isCanvasUndo: false });
     },
     clearCanvas: () => {
-      const { colors, activeColor } = this.state;
-      const { index, color } = this.filterAndIndex(colors, activeColor);
-      color.sessionClicks = 0;
-      colors[index] = color;
+      const { colors } = this.state;
+      colors.forEach(color => (color.sessionclicks = 0));
       this.setState({ isCanvasCleared: true, colors });
     },
     changeCanvasClear: () => {
@@ -47,8 +47,13 @@ export class Provider extends Component {
     }
   };
 
-  componentDidMount = () => {
-    this.setState({ activeColor: this.state.colors[0] });
+  componentDidMount = async () => {
+    try {
+      const colors = await axios.get('http://localhost:5000/colors');
+      this.setState({ activeColor: colors.data[0], colors: colors.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   filterAndIndex = (colors, activeColor) => {

@@ -19,7 +19,8 @@ class ClickableArea extends Component {
             countClick,
             changeCanvasUndo,
             changeCanvasClear,
-            activeColor
+            activeColor,
+            canvasDimensions
           } = context.state;
 
           if (isCanvasCleared) {
@@ -37,13 +38,14 @@ class ClickableArea extends Component {
                 hideGrid
                 brushColor={activeColor.name}
                 catenaryColor={activeColor.name}
-                canvasWidth={'1130px'}
-                canvasHeight={'600px'}
+                canvasWidth={canvasDimensions.width}
+                canvasHeight={canvasDimensions.height}
                 lazyRadius={0}
                 brushRadius={0}
                 style={{
+                  border: '2px solid blue',
                   boxShadow:
-                    '0 13px 27px -5px rgba(50, 50, 93, 0.25),    0 8px 16px -8px rgba(0, 0, 0, 0.3)'
+                    '0 13px 27px -5px rgba(50, 50, 93, 0.25),    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 13px 27px -5px rgba(50, 50, 93, 0.25)'
                 }}
               />
             </Container>

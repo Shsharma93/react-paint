@@ -10,11 +10,11 @@ const LabelComponent = () => {
         return (
           <div style={{ marginTop: '0.3em' }}>
             <Label color='teal' size='small'>
-              {activeColor.totalClicks}
+              {activeColor.totalclicks}
               <Label.Detail>Total Click</Label.Detail>
             </Label>
             <Label color='teal' size='small'>
-              {activeColor.sessionClicks}
+              {activeColor.sessionclicks}
               <Label.Detail>This session Click</Label.Detail>
             </Label>
           </div>
