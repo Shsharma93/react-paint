@@ -14,7 +14,6 @@ export class Provider extends Component {
     canvasDimensions: { width: 1130, height: 600 },
     isCanvasAvailable: false,
     canvasArea: '',
-    savedCanvas: '',
     countClicks: () => {
       const { colors, activeColor } = this.state;
       const { index, color } = this.filterAndIndex(colors, activeColor);
@@ -41,17 +40,25 @@ export class Provider extends Component {
       this.setState({ activeColor: color });
     },
     saveCanvas: () => {
-      let { colors, canvasArea, savedCanvas } = this.state;
+      let { colors, canvasArea } = this.state;
       colors.forEach(color => (color.totalclicks += color.sessionclicks));
       colors.forEach(color => (color.sessionclicks = 0));
-      savedCanvas = canvasArea.getSaveData();
-      this.setState({ colors, isCanvasSaved: true, savedCanvas });
+      const savedCanvas = canvasArea.getSaveData();
+      this.setState({ colors });
       this.postCanvasData(savedCanvas, colors);
     },
     getCanvasRef: canvasArea => {
       this.setState({ canvasArea, isCanvasAvailable: false });
     },
-    loadSavedCanvas: () => {}
+    loadSavedCanvas: async () => {
+      const { canvasArea } = this.state;
+      try {
+        const canvas = await axios.get('http://localhost:5000/canvas');
+        canvasArea.loadSaveData(JSON.stringify(canvas.data[0].canvas_name));
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   componentDidMount = async () => {
@@ -68,7 +75,14 @@ export class Provider extends Component {
   };
 
   postCanvasData = async (savedCanvas, colors) => {
-    await axios.post('http://localhost:5000/colors', { savedCanvas, colors });
+    try {
+      await axios.post('http://localhost:5000/colors', {
+        savedCanvas,
+        colors
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   filterAndIndex = (colors, activeColor) => {

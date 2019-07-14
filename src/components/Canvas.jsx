@@ -18,7 +18,7 @@ class ClickableArea extends Component {
             activeColor,
             canvasDimensions,
             isCanvasAvailable,
-            getCanvasRef,
+            getCanvasRef
           } = context.state;
 
           if (isCanvasAvailable) {
