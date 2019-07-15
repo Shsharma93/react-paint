@@ -12,7 +12,7 @@ Database setup done.
 
 
 
-### Now setup backend Node.js and frontend React.js
+## Now setup backend Node.js and frontend React.js
 
 Download source code from repository. Here is the link.
 
@@ -23,7 +23,7 @@ Unzip the folder and it will be named “react-paint” or if not, then rename t
 
 
 
-## First, Setup the backend - (using Terminal)
+### First, Setup the backend - (using Terminal)
 
 Now, using terminal navigate to the folder named “react-paint”.
 
@@ -37,7 +37,7 @@ Backend server will be running on localhost:5000.
 
 
 
-## Setup the frontend - (using Terminal)
+### Setup the frontend - (using Terminal)
 
 Now, using terminal navigate to the folder named “react-paint”.
 
@@ -49,3 +49,7 @@ Frontend server will be running on localhost:3000
 
 Open http://localhost:3000 to view it in the browser.
 
+
+
+
+NOTE :- Load button is to load the saved canvas(drawing) from database. First save the drawing to load it. Load functionality will only work after drawing is saved into database.
