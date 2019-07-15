@@ -1,12 +1,6 @@
 const router = require('express').Router();
 const Pool = require('pg').Pool;
-const pool = new Pool({
-  user: 'me',
-  host: 'localhost',
-  database: 'paint_api',
-  password: '12345678',
-  port: 5432
-});
+const pool = require('./config/config');
 
 const getColors = (req, res) => {
   pool.query('SELECT * FROM colors ORDER BY name ASC', (error, results) => {
@@ -45,7 +39,7 @@ const postColors = (req, res) => {
 
   pool.query(
     'UPDATE canvas SET canvas_name = $1 WHERE id = $2',
-    [savedCanvas, 2],
+    [savedCanvas, 1],
     (error, results) => {
       if (error) {
         throw error;
